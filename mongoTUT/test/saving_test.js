@@ -5,6 +5,12 @@ const assert = require('assert');
 
 describe('Saving test', () => {
 
+    beforeEach((done) => {
+        mongoose.connection.collections.cricketers.drop(() => {
+            done();
+        });
+    });
+
     it('Saving data to the DB', (done) => {
 
         var crick = new Cricketer({
