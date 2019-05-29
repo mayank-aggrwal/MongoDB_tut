@@ -1,0 +1,36 @@
+To start mongoDB: 
+sudo systemctl start mongod
+
+To stop mongoDB: 
+sudo systemctl stop mongod
+
+To enable at startup: 
+sudo systemctl enable mongod
+
+To check status:
+sudo systemctl status mongod
+
+To check mongoDB has started on port 27017:
+sudo netstat -plntu
+
+To open mongo shell:
+mongo
+
+To install:
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
+sudo echo "deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+
+To configure mongoDB username and password:
+mongo
+if error: export LC_ALL=C
+use admin
+
+db.createUser({user:"admin", pwd:"admin", roles:[{role:"root", db:"admin"}]})
+exit
+sudo nano /lib/systemd/system/mongod.service
+add new option: ExecStart=/usr/bin/mongod --auth --config /etc/mongod.conf
+Reload systemd service: sudo systemctl daemon-reload
+sudo service mongod restart
+mongo -u admin -p admin --authenticationDatabase admin
